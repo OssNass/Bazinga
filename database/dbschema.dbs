@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="bazinga" id="Project_1ab7" database="PostgreSQL" >
+	<schema name="public" >
+		<table name="Aid" >
+			<column name="id" type="serial" jt="4" mandatory="y" autoincrement="y" />
+			<column name="Name" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="Pk_Aid_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="Idx_Aid_name" unique="UNIQUE" >
+				<column name="Name" />
+			</index>
+		</table>
+		<table name="Region" >
+			<column name="id" type="serial" jt="4" mandatory="y" autoincrement="y" />
+			<column name="Shortname" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="fullname" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<index name="Pk_Region_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="Idx_Region_fullname" unique="UNIQUE" >
+				<column name="fullname" />
+			</index>
+		</table>
+		<table name="delieveried_Aid" >
+			<column name="family_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="aid_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="date_of_delievered" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="amount" type="integer" length="0" decimal="0" jt="4" mandatory="y" >
+				<defo>1</defo>
+			</column>
+			<index name="Idx_delieveried_Aid_amounts" unique="NORMAL" >
+				<column name="amount" />
+			</index>
+			<index name="Idx_delieveried_Aid_dates" unique="NORMAL" >
+				<column name="date_of_delievered" />
+			</index>
+			<index name="Idx_delieveried_Aid_per_family" unique="NORMAL" >
+				<column name="family_id" />
+			</index>
+			<index name="Idx_delieveried_Aid_per_aid_type" unique="NORMAL" >
+				<column name="aid_id" />
+			</index>
+			<index name="idx_delieveried_aid_pk" unique="PRIMARY_KEY" >
+				<column name="family_id" />
+				<column name="aid_id" />
+				<column name="date_of_delievered" />
+			</index>
+			<fk name="fk_delieveried_aid_aid" to_schema="public" to_table="Aid" >
+				<fk_column name="aid_id" pk="id" />
+			</fk>
+			<fk name="fk_delieveried_aid_family" to_schema="public" to_table="family" >
+				<fk_column name="family_id" pk="id" />
+			</fk>
+		</table>
+		<table name="family" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="status" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="family_type" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="beneficary_id" type="integer" length="0" decimal="0" jt="4" />
+			<column name="provider_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="origin" type="integer" length="0" decimal="0" jt="4" />
+			<column name="date_of_registeration" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="lead_by_woman" type="boolean" length="0" decimal="0" jt="-7" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<index name="Pk_family_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="Idx_family_status" unique="NORMAL" >
+				<column name="status" />
+			</index>
+			<index name="Idx_family_type" unique="NORMAL" >
+				<column name="family_type" />
+			</index>
+			<index name="Idx_family_origin" unique="NORMAL" >
+				<column name="origin" />
+			</index>
+			<index name="Idx_family_dor" unique="NORMAL" >
+				<column name="date_of_registeration" />
+			</index>
+			<index name="Idx_family_lbw" unique="NORMAL" >
+				<column name="lead_by_woman" />
+			</index>
+			<fk name="Fk_family" to_schema="public" to_table="Region" >
+				<fk_column name="origin" pk="id" />
+			</fk>
+			<fk name="fk_family_family_type" to_schema="public" to_table="family_type" delete_action="restrict" update_action="cascade" >
+				<fk_column name="family_type" pk="id" />
+			</fk>
+			<fk name="fk_family_member" to_schema="public" to_table="member" delete_action="restrict" update_action="cascade" >
+				<fk_column name="provider_id" pk="memeber_id" />
+			</fk>
+			<fk name="fk_family_member_0" to_schema="public" to_table="member" delete_action="restrict" update_action="cascade" >
+				<fk_column name="beneficary_id" pk="memeber_id" />
+			</fk>
+		</table>
+		<table name="family_type" >
+			<column name="id" type="serial" jt="4" mandatory="y" />
+			<column name="name" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_family_type_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="member" >
+			<column name="family_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="memeber_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="birthday" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="relationship" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="special_needs" type="boolean" length="0" decimal="0" jt="-7" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<column name="has_chronic_disease" type="boolean" length="0" decimal="0" jt="-7" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<column name="sex" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<index name="Idx_member" unique="PRIMARY_KEY" >
+				<column name="family_id" />
+				<column name="memeber_id" />
+			</index>
+			<index name="Idx_member_sex" unique="NORMAL" >
+				<column name="sex" />
+			</index>
+			<index name="Idx_member_relationship" unique="NORMAL" >
+				<column name="relationship" />
+			</index>
+			<index name="Idx_member_special_needs" unique="NORMAL" >
+				<column name="special_needs" />
+			</index>
+			<index name="Idx_member_chronic_diseases" unique="NORMAL" >
+				<column name="has_chronic_disease" />
+			</index>
+			<index name="unq_member_memeber_id" unique="UNIQUE" >
+				<column name="memeber_id" />
+			</index>
+			<constraint name="Cns_member" >
+				<string>age GENERATED ALWAYS AS ()</string>
+			</constraint>
+			<fk name="Fk_member" to_schema="public" to_table="family" >
+				<fk_column name="family_id" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.14.jar" driver_desc="Standard" host="localhost" port="5432" user="root" passwd="cm9vdA==" schema_mapping="Default:public" />
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.30.1.jar" driver_desc="Standard" host="localhost" port="7210" instance="/home/ossama/qtcreator/Bazinga/Azma/test" />
+	<layout name="Default Layout" id="Layout_152" show_relation="columns" >
+		<entity schema="public" name="Aid" color="C1D8EE" x="928" y="192" />
+		<entity schema="public" name="Region" color="C1D8EE" x="48" y="160" />
+		<entity schema="public" name="delieveried_Aid" color="C1D8EE" x="624" y="432" />
+		<entity schema="public" name="family" color="C1D8EE" x="256" y="368" />
+		<entity schema="public" name="family_type" color="C1D8EE" x="64" y="432" />
+		<entity schema="public" name="member" color="C1D8EE" x="512" y="48" />
+	</layout>
+</project>
