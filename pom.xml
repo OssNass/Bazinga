@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -49,21 +49,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.jinq/jinq-jpa -->
+
         <dependency>
             <groupId>org.jinq</groupId>
             <artifactId>jinq-jpa</artifactId>
             <version>1.8.30</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <artifactId>asthma</artifactId>-->
-        <!--            <groupId>org.sarc</groupId>-->
-        <!--            <version>1.0</version>-->
-        <!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 
-        <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
@@ -127,6 +119,7 @@
                     <version>8.8.3</version>
                     <configuration>
                         <mainClass>org.sarc.bazinga.app.Main</mainClass>
+                        <preLoader>org.sarc.bazinga.app.PreLoader</preLoader>
                         <appName>Bazinga</appName>
                         <deployDir>bazinga</deployDir>
                         <vendor>SARC Ekrima</vendor>

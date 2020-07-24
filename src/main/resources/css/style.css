@@ -1,0 +1,51 @@
+@font-face {
+    src: url("../fonts/helveticaneuelt-arabic-55-roman.ttf");
+}
+
+.root {
+    -fx-font-size: 12pt;
+    -fx-font-family: "HelveticaNeueLT Arabic 55 Roman";
+}
+
+.list-cell{
+    -fx-pref-height: 44;
+}
+
+.text-field, .combo-box {
+    -fx-pref-height: 44;
+}
+
+.button {
+    -fx-padding: 6;
+    -fx-pref-height: 44;
+}
+
+.browse {
+    -fx-image: url("../icons/open.png");
+}
+
+.alert.confirmation.dialog-pane,
+.text-input-dialog.dialog-pane,
+.choice-dialog.dialog-pane {
+    -fx-graphic: url("../icons/confirm.png");
+}
+
+.alert.information.dialog-pane {
+    -fx-graphic: url("../icons/information.png");
+}
+
+.alert.error.dialog-pane {
+    -fx-graphic: url("../icons/error.png");
+}
+
+.alert.warning.dialog-pane {
+    -fx-graphic: url("../icons/warning.png");
+}
+
+.dialog-pane > .button-bar > .container > .details-button.more {
+    -fx-graphic: url("../icons/more-details.png");
+}
+
+.dialog-pane > .button-bar > .container > .details-button.less {
+    -fx-graphic: url("../icons/less-details.png");
+}

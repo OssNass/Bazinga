@@ -32,22 +32,26 @@ public class SIController extends PlugInController {
     void btnBrowseClick(ActionEvent event) {
         FileChooser open = new FileChooser();
         open.setTitle(resources.getString("SI.ChooserTitle"));
-        open.setSelectedExtensionFilter(new ExtensionFilter("Excel 2007 File", "xlsx"));
+        open.getExtensionFilters().add(new ExtensionFilter("Excel 2007 File", "*.xlsx"));
         File openFile = open.showOpenDialog(null);
         if (openFile != null) {
             txtFileName.setText(openFile.getAbsolutePath());
+            ((SonbolaImporter) plugIn).setFileName(txtFileName.getText());
+            cmbSheets.setItems(((SonbolaImporter) plugIn).getSheets());
             lastLocation.setData(Paths.get(openFile.toURI()).getParent().toString());
         }
     }
 
     @Override
     protected void userInit() {
+        addTask.disableProperty().bind(txtFileName.textProperty().isEmpty().
+                or(cmbSheets.getSelectionModel().selectedItemProperty().isNull()));
 
     }
 
     public void onStageShowUser() {
-        cmbSheets.setItems(((SonbolaImporter) plugIn).getSheets());
-        txtFileName.textProperty().bind(((SonbolaImporter) plugIn).fileNameProperty());
+
+
     }
 
 }

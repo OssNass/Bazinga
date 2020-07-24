@@ -9,7 +9,7 @@ public abstract class PlugInController extends SimpleController {
     protected PlugIn plugIn;
 
     @FXML
-    private Button addTask;
+    protected Button addTask;
 
     protected PlugIn getPlugIn() {
         return plugIn;
