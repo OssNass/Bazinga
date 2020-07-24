@@ -15,14 +15,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <hibernate.version>5.4.18.Final</hibernate.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.sarc</groupId>
+            <artifactId>asthma</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.github.ossnass</groupId>
@@ -30,15 +35,31 @@
             <version>0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.sarc</groupId>
-            <artifactId>asthma</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <artifactId>asthma</artifactId>-->
-<!--            <groupId>org.sarc</groupId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jinq/jinq-jpa -->
+        <dependency>
+            <groupId>org.jinq</groupId>
+            <artifactId>jinq-jpa</artifactId>
+            <version>1.8.30</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <artifactId>asthma</artifactId>-->
+        <!--            <groupId>org.sarc</groupId>-->
+        <!--            <version>1.0</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 
@@ -66,7 +87,7 @@
                     <configuration>
                         <resources>
                             <resource>
-                                <dir>src/main/resources</dir>
+                                <directory>src/main/resources</directory>
                             </resource>
                         </resources>
                     </configuration>
@@ -132,5 +153,23 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.hibernate.orm.tooling</groupId>
+                <artifactId>hibernate-enhance-maven-plugin</artifactId>
+                <version>${hibernate.version}</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <enableAssociationManagement>true</enableAssociationManagement>
+                            <enableLazyInitialization>true</enableLazyInitialization>
+                        </configuration>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

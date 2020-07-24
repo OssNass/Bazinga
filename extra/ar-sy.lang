@@ -9,3 +9,12 @@ MESSAGE.TITLE.INFO=لأخذ العلم
 MESSAGE.TITLE.CONFIRM=تأكيد
 
 STAGE.FrmMain.TITLE=Bazinga
+
+NewTask=مهمة جديدة
+
+AddTask=إضافة المهمة
+SI.name=معالج ملفات سنبلة
+SI.description=معالجة ملفات إكسل المصدرة من سنبلة وإدخال المعلومات الموجودة فيها إلي قاعدة البيانات
+SI.FileName=مسار الملف
+SI.Sheet=الورقة
+SI.ChooserTitle=الرجاء تحديد ملف سنبلة

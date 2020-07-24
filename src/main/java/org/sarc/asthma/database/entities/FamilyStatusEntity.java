@@ -1,15 +1,15 @@
-package org.sarc.bazinga.database;
+package org.sarc.asthma.database.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "HOUSING_STATUS", schema = "PUBLIC", catalog = "HEARTATTACK")
-public class HousingStatus {
+@Table(name = "FAMILY_STATUS", schema = "PUBLIC", catalog = "HEARTATTACK")
+public class FamilyStatusEntity {
     private Integer id;
     private String name;
-    private Collection<Family> familiesById;
+    private List<FamilyEntity> familiesById;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -35,7 +35,7 @@ public class HousingStatus {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HousingStatus that = (HousingStatus) o;
+        FamilyStatusEntity that = (FamilyStatusEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }
@@ -45,12 +45,12 @@ public class HousingStatus {
         return Objects.hash(id, name);
     }
 
-    @OneToMany(mappedBy = "housingStatusByHousingTypeId")
-    public Collection<Family> getFamiliesById() {
+    @OneToMany(mappedBy = "familyStatusByStatus")
+    public List<FamilyEntity> getFamiliesById() {
         return familiesById;
     }
 
-    public void setFamiliesById(Collection<Family> familiesById) {
+    public void setFamiliesById(List<FamilyEntity> familiesById) {
         this.familiesById = familiesById;
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="asthma">
+        <class>org.sarc.asthma.database.entities.AidEntity</class>
+        <class>org.sarc.asthma.database.entities.DeliveredAidEntity</class>
+        <class>org.sarc.asthma.database.entities.FamilyEntity</class>
+        <class>org.sarc.asthma.database.entities.FamilyStatusEntity</class>
+        <class>org.sarc.asthma.database.entities.FamilyTypeEntity</class>
+        <class>org.sarc.asthma.database.entities.HousingStatusEntity</class>
+        <class>org.sarc.asthma.database.entities.HousingTypeEntity</class>
+        <class>org.sarc.asthma.database.entities.MemberEntity</class>
+        <class>org.sarc.asthma.database.entities.MemberStatusEntity</class>
+        <class>org.sarc.asthma.database.entities.RegionEntity</class>
+        <class>org.sarc.asthma.database.entities.RelationshipEntity</class>
+
+
+        <properties>
+            <property name="hibernate.connection.url"
+                      value="jdbc:h2:file:/home/ossama/IdeaProjects/asthma/heartattack"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="connection.provider_class"
+                      value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
+            <property name="org.hibernate.SQL" value="debug"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -1,18 +1,19 @@
-package org.sarc.bazinga.database;
+package org.sarc.asthma.database.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "HOUSING_TYPE", schema = "PUBLIC", catalog = "HEARTATTACK")
-public class HousingType {
+@Table(name = "MEMBER_STATUS", schema = "PUBLIC", catalog = "HEARTATTACK")
+public class MemberStatusEntity {
     private Integer id;
     private String name;
-    private Collection<Family> familiesById;
+    private List<MemberEntity> membersById;
 
     @Id
     @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -22,7 +23,7 @@ public class HousingType {
     }
 
     @Basic
-    @Column(name = "NAME", nullable = false, length = 100)
+    @Column(name = "NAME", nullable = false, length = 25)
     public String getName() {
         return name;
     }
@@ -35,7 +36,7 @@ public class HousingType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HousingType that = (HousingType) o;
+        MemberStatusEntity that = (MemberStatusEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }
@@ -45,12 +46,12 @@ public class HousingType {
         return Objects.hash(id, name);
     }
 
-    @OneToMany(mappedBy = "housingTypeByHousingTypeId")
-    public Collection<Family> getFamiliesById() {
-        return familiesById;
+    @OneToMany(mappedBy = "memberStatusByStatusId")
+    public List<MemberEntity> getMembersById() {
+        return membersById;
     }
 
-    public void setFamiliesById(Collection<Family> familiesById) {
-        this.familiesById = familiesById;
+    public void setMembersById(List<MemberEntity> membersById) {
+        this.membersById = membersById;
     }
 }

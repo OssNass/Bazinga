@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
-
-
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sarc.bazinga.gui.FrmMain" />
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.TaskProgressView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="org.sarc.bazinga.gui.FrmMain">
+   <top>
+      <ToolBar maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+               BorderPane.alignment="CENTER">
+         <items>
+            <Label text="%NewTask"/>
+            <ComboBox fx:id="cmbTasks" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                      minWidth="-Infinity" prefWidth="300.0"/>
+            <Button fx:id="btnNewTask" mnemonicParsing="false" onAction="#btnNewTaskClick" text="%NewTask"/>
+         </items>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="12.0"/>
+         </padding>
+         <BorderPane.margin>
+            <Insets/>
+         </BorderPane.margin>
+      </ToolBar>
+   </top>
+   <center>
+      <TabPane fx:id="tPTasks" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+               BorderPane.alignment="CENTER"/>
+   </center>
+   <right>
+      <TaskProgressView fx:id="tPView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER"/>
+   </right>
+</BorderPane>

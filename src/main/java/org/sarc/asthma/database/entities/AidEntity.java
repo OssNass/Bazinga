@@ -1,17 +1,19 @@
-package org.sarc.bazinga.database;
+package org.sarc.asthma.database.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Relationship {
+@Table(name = "AID", schema = "PUBLIC", catalog = "HEARTATTACK")
+public class AidEntity {
     private Integer id;
     private String name;
-    private Collection<Member> membersById;
+    private List<DeliveredAidEntity> deliveredAidsById;
 
     @Id
     @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -34,9 +36,9 @@ public class Relationship {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Relationship that = (Relationship) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name);
+        AidEntity aidEntity = (AidEntity) o;
+        return Objects.equals(id, aidEntity.id) &&
+                Objects.equals(name, aidEntity.name);
     }
 
     @Override
@@ -44,12 +46,12 @@ public class Relationship {
         return Objects.hash(id, name);
     }
 
-    @OneToMany(mappedBy = "relationshipByRelationship")
-    public Collection<Member> getMembersById() {
-        return membersById;
+    @OneToMany(mappedBy = "aidByAidId")
+    public List<DeliveredAidEntity> getDeliveredAidsById() {
+        return deliveredAidsById;
     }
 
-    public void setMembersById(Collection<Member> membersById) {
-        this.membersById = membersById;
+    public void setDeliveredAidsById(List<DeliveredAidEntity> deliveredAidsById) {
+        this.deliveredAidsById = deliveredAidsById;
     }
 }
