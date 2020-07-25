@@ -7,27 +7,27 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class DeliveredAidEntityPK implements Serializable {
-    private int familyId;
-    private int aidId;
+    private Integer familyId;
+    private Integer aidId;
     private LocalDate dateOfDelivered;
 
     @Column(name = "FAMILY_ID", nullable = false, insertable = false, updatable = false)
     @Id
-    public int getFamilyId() {
+    public Integer getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(int familyId) {
+    public void setFamilyId(Integer familyId) {
         this.familyId = familyId;
     }
 
     @Column(name = "AID_ID", nullable = false, insertable = false, updatable = false)
     @Id
-    public int getAidId() {
+    public Integer getAidId() {
         return aidId;
     }
 
-    public void setAidId(int aidId) {
+    public void setAidId(Integer aidId) {
         this.aidId = aidId;
     }
 

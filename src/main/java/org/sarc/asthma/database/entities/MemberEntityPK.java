@@ -6,26 +6,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class MemberEntityPK implements Serializable {
-    private int familyId;
-    private int memeberId;
+    private Integer familyId;
+    private Integer memeberId;
 
     @Column(name = "FAMILY_ID", nullable = false, insertable = false, updatable = false)
     @Id
-    public int getFamilyId() {
+    public Integer getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(int familyId) {
+    public void setFamilyId(Integer familyId) {
         this.familyId = familyId;
     }
 
     @Column(name = "MEMEBER_ID", nullable = false, insertable = false, updatable = false)
     @Id
-    public int getMemeberId() {
+    public Integer getMemeberId() {
         return memeberId;
     }
 
-    public void setMemeberId(int memeberId) {
+    public void setMemeberId(Integer memeberId) {
         this.memeberId = memeberId;
     }
 

@@ -6,12 +6,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "REGION", schema = "PUBLIC", catalog = "HEARTATTACK")
-@NamedQueries(
-        @NamedQuery(name = "Regions by List of Full Names",
-                query = "SELECT R FROM RegionEntity R WHERE R.fullname IN (:LIST)")
-)
+
 public class RegionEntity {
-    private int id;
+    private Integer id;
     private String shortname;
     private String fullname;
     private List<FamilyEntity> familiesById;
@@ -19,11 +16,11 @@ public class RegionEntity {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "FAMILY", schema = "PUBLIC", catalog = "HEARTATTACK")
 public class FamilyEntity {
-    private int id;
+    private Integer id;
     private Integer status;
     private Integer familyType;
     private Integer beneficaryId;
@@ -30,11 +30,11 @@ public class FamilyEntity {
 
     @Id
     @Column(name = "ID", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

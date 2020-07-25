@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "AID", schema = "PUBLIC", catalog = "HEARTATTACK")
 public class AidEntity {
-    private Integer id;
+    private int id;
     private String name;
     private List<DeliveredAidEntity> deliveredAidsById;
 

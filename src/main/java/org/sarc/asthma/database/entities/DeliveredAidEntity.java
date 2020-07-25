@@ -8,8 +8,8 @@ import java.util.Objects;
 @Table(name = "DELIVERED_AID", schema = "PUBLIC", catalog = "HEARTATTACK")
 @IdClass(DeliveredAidEntityPK.class)
 public class DeliveredAidEntity {
-    private int familyId;
-    private int aidId;
+    private Integer familyId;
+    private Integer aidId;
     private LocalDate dateOfDelivered;
     private Integer amount;
     private FamilyEntity familyByFamilyId;
@@ -17,21 +17,21 @@ public class DeliveredAidEntity {
 
     @Id
     @Column(name = "FAMILY_ID", nullable = false)
-    public int getFamilyId() {
+    public Integer getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(int familyId) {
+    public void setFamilyId(Integer familyId) {
         this.familyId = familyId;
     }
 
     @Id
     @Column(name = "AID_ID", nullable = false)
-    public int getAidId() {
+    public Integer getAidId() {
         return aidId;
     }
 
-    public void setAidId(int aidId) {
+    public void setAidId(Integer aidId) {
         this.aidId = aidId;
     }
 

@@ -6,6 +6,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,6 +25,7 @@ public class SonbolaImporter extends PlugIn<Void> {
     private final ObservableList<String> sheets;
     private Workbook sonbola;
     private Sheet data;
+    private final int[] indecies = new int[COLUMN_INDECIES.INDEX_ALL.length];
 
     public SonbolaImporter() {
         super();
@@ -50,6 +53,36 @@ public class SonbolaImporter extends PlugIn<Void> {
             LogManager.addLog(Level.WARNING, e, null);
         }
 
+    }
+
+    public int[] setSheet(String sheetName) {
+        this.data = null;
+        if (sheetName == null)
+            return COLUMN_INDECIES.INDEX_ALL;
+        Sheet sheet = sonbola.getSheet(sheetName);
+        ArrayList<Integer> resultList = new ArrayList<>();
+        Row row = sheet.getRow(0);
+        if (row == null)
+            return COLUMN_INDECIES.INDEX_ALL;
+        int numOfColumns = row.getLastCellNum() + 1;
+        for (int i = 0; i < COLUMN_INDECIES.INDEX_ALL.length; i++) {
+            boolean missing = true;
+            for (int colIndex = 0; colIndex < numOfColumns; colIndex++) {
+                Cell cell = row.getCell(colIndex);
+                if (cell != null && cell.getStringCellValue().equals(COLUMN_INDECIES.COLUMNS_HEADER[i])) {
+                    indecies[i] = colIndex;
+                    missing = false;
+                }
+            }
+            if (missing) {
+                resultList.add(i);
+            }
+        }
+        if (resultList.size() == 0) {
+            this.data = sheet;
+            return null;
+        }
+        return resultList.stream().mapToInt(i -> i).toArray();
     }
 
     public String getFileName() {
