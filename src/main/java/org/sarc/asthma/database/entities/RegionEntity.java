@@ -11,7 +11,7 @@ import java.util.Objects;
                 query = "SELECT R FROM RegionEntity R WHERE R.fullname IN (:LIST)")
 )
 public class RegionEntity {
-    private Integer id;
+    private int id;
     private String shortname;
     private String fullname;
     private List<FamilyEntity> familiesById;
@@ -19,11 +19,11 @@ public class RegionEntity {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

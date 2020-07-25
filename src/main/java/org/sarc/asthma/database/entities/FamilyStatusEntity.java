@@ -7,17 +7,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "FAMILY_STATUS", schema = "PUBLIC", catalog = "HEARTATTACK")
 public class FamilyStatusEntity {
-    private Integer id;
+    private int id;
     private String name;
     private List<FamilyEntity> familiesById;
 
     @Id
     @Column(name = "ID", nullable = false)
-    public Integer getId() {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

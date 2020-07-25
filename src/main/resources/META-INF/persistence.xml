@@ -18,13 +18,12 @@
 
 
         <properties>
-            <property name="hibernate.connection.url"
-                      value="jdbc:h2:file:/home/ossama/IdeaProjects/asthma/heartattack"/>
-            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="connection.provider_class"
                       value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
-            <property name="org.hibernate.SQL" value="debug"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

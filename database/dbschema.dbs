@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="bazinga" id="Project_1ab7" database="H2" >
+	<schema name="public" >
+		<table name="HOUSING_STATUS" >
+			<column name="ID" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="NAME" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="PK_HOUSING_STATUS_ID" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="IDX_HOUSING_STATUS_NAME" unique="UNIQUE" >
+				<column name="NAME" />
+			</index>
+		</table>
+		<table name="HOUSING_TYPE" >
+			<column name="ID" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="NAME" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="PK_HOUSING_TYPE_ID" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="IDX_HOUSING_TYPE_NAME" unique="UNIQUE" >
+				<column name="NAME" />
+			</index>
+		</table>
+		<table name="RELATIONSHIP" >
+			<column name="ID" type="integer" jt="4" mandatory="y" autoincrement="y" />
+			<column name="NAME" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="PK_RELATIONSHIP_ID" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="IDX_RELATIONSHIP_NAME" unique="UNIQUE" >
+				<column name="NAME" />
+			</index>
+		</table>
+		<table name="aid" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_aid_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_aid_name" unique="UNIQUE" >
+				<column name="name" />
+			</index>
+		</table>
+		<table name="delivered_aid" >
+			<column name="family_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="aid_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="date_of_delievered" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="amount" type="integer" length="0" decimal="0" jt="4" mandatory="y" >
+				<defo>1</defo>
+			</column>
+			<index name="idx_delieveried_aid_amounts" unique="NORMAL" >
+				<column name="amount" />
+			</index>
+			<index name="idx_delieveried_aid_dates" unique="NORMAL" >
+				<column name="date_of_delievered" />
+			</index>
+			<index name="idx_delieveried_aid_per_family" unique="NORMAL" >
+				<column name="family_id" />
+			</index>
+			<index name="idx_delieveried_aid_per_aid_type" unique="NORMAL" >
+				<column name="aid_id" />
+			</index>
+			<index name="idx_delieveried_aid_pk" unique="PRIMARY_KEY" >
+				<column name="family_id" />
+				<column name="aid_id" />
+				<column name="date_of_delievered" />
+			</index>
+			<fk name="fk_delieveried_aid_aid" to_schema="public" to_table="aid" >
+				<fk_column name="aid_id" pk="id" />
+			</fk>
+			<fk name="fk_delieveried_aid_family" to_schema="public" to_table="family" >
+				<fk_column name="family_id" pk="id" />
+			</fk>
+		</table>
+		<table name="family" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="status" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="family_type" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="beneficary_id" type="integer" length="0" decimal="0" jt="4" />
+			<column name="provider_id" type="integer" jt="4" />
+			<column name="origin" type="integer" length="0" decimal="0" jt="4" />
+			<column name="date_of_registeration" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="lead_by_woman" type="boolean" length="0" decimal="0" jt="16" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<column name="ADDRESS" type="varchar" length="100" jt="12" />
+			<column name="HOUSING_TYPE_ID" type="integer" jt="4" />
+			<column name="HOUSEING_STATUS_ID" type="integer" length="1" jt="4" />
+			<column name="MARRIED" type="boolean" jt="16" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<index name="pk_family_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_family_status" unique="NORMAL" >
+				<column name="status" />
+			</index>
+			<index name="idx_family_type" unique="NORMAL" >
+				<column name="family_type" />
+			</index>
+			<index name="idx_family_origin" unique="NORMAL" >
+				<column name="origin" />
+			</index>
+			<index name="idx_family_dor" unique="NORMAL" >
+				<column name="date_of_registeration" />
+			</index>
+			<index name="idx_family_lbw" unique="NORMAL" >
+				<column name="lead_by_woman" />
+			</index>
+			<fk name="fk_family" to_schema="public" to_table="region" >
+				<fk_column name="origin" pk="id" />
+			</fk>
+			<fk name="fk_family_family_type" to_schema="public" to_table="family_type" delete_action="restrict" update_action="cascade" >
+				<fk_column name="family_type" pk="id" />
+			</fk>
+			<fk name="fk_family_family_status" to_schema="public" to_table="family_status" delete_action="restrict" update_action="cascade" >
+				<fk_column name="status" pk="id" />
+			</fk>
+			<fk name="FK_FAMILY_HOUSING_TYPE" to_schema="public" to_table="HOUSING_TYPE" delete_action="restrict" update_action="cascade" >
+				<fk_column name="HOUSING_TYPE_ID" pk="ID" />
+			</fk>
+			<fk name="FK_FAMILY_HOUSING_STATUS" to_schema="public" to_table="HOUSING_STATUS" delete_action="restrict" update_action="cascade" >
+				<fk_column name="HOUSING_TYPE_ID" pk="ID" />
+			</fk>
+		</table>
+		<table name="family_status" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_family_status_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="IDX_FAMILY_STATUS_NAME" unique="UNIQUE" >
+				<column name="name" />
+			</index>
+		</table>
+		<table name="family_type" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="name" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_family_type_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="IDX_FAMILY_TYPE_NAME" unique="UNIQUE" >
+				<column name="name" />
+			</index>
+		</table>
+		<table name="member" >
+			<column name="family_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="memeber_id" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="birthday" type="date" length="0" decimal="0" jt="91" mandatory="y" />
+			<column name="relationship" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="special_needs" type="boolean" length="0" decimal="0" jt="16" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<column name="has_chronic_disease" type="boolean" length="0" decimal="0" jt="16" mandatory="y" >
+				<defo>false</defo>
+			</column>
+			<column name="sex" type="integer" length="0" decimal="0" jt="4" mandatory="y" />
+			<column name="AGE" type="integer" jt="4" />
+			<column name="WORK" type="varchar" length="100" jt="12" />
+			<column name="INCOME" type="integer" jt="4" >
+				<defo>0</defo>
+			</column>
+			<column name="NAME" type="varchar" length="20" jt="12" mandatory="y" />
+			<column name="FATHER" type="varchar" length="100" jt="12" />
+			<column name="MOTHER" type="varchar" length="100" jt="12" />
+			<index name="idx_member" unique="PRIMARY_KEY" >
+				<column name="family_id" />
+				<column name="memeber_id" />
+			</index>
+			<index name="idx_member_sex" unique="NORMAL" >
+				<column name="sex" />
+			</index>
+			<index name="idx_member_relationship" unique="NORMAL" >
+				<column name="relationship" />
+			</index>
+			<index name="idx_member_special_needs" unique="NORMAL" >
+				<column name="special_needs" />
+			</index>
+			<index name="idx_member_chronic_diseases" unique="NORMAL" >
+				<column name="has_chronic_disease" />
+			</index>
+			<index name="unq_member_memeber_id" unique="UNIQUE" >
+				<column name="memeber_id" />
+			</index>
+			<index name="IDX_MEMBER_AGE" unique="NORMAL" >
+				<column name="AGE" />
+			</index>
+			<fk name="fk_member" to_schema="public" to_table="family" >
+				<fk_column name="family_id" pk="id" />
+			</fk>
+			<fk name="FK_MEMBER_RELATIONSHIP" to_schema="public" to_table="RELATIONSHIP" delete_action="restrict" update_action="cascade" >
+				<fk_column name="relationship" pk="ID" />
+			</fk>
+		</table>
+		<table name="region" >
+			<column name="id" type="integer" length="0" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="shortname" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+			<column name="fullname" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_region_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="idx_region_fullname" unique="UNIQUE" >
+				<column name="fullname" />
+			</index>
+		</table>
+		<view name="LED_BY_WOMAN" >
+			<view_script><![CDATA[CREATE VIEW ${name} AS SELECT count(family.id) as  number_of_families,
+count(case when member.sex=0 and member.age <5) as Under_5_female,
+count(case when member.sex=1 and member.age <5) as Under_5_male,
+count(case when member.sex=0 and member.age >=5 and member.age <18) as 5_to_18_female,
+count(case when member.sex=1 and member.age >=5 and member.age <18) as 5_to_18_male,
+count(case when member.sex=0 and member.age >=18 and member.age <60) as 18_to_60_female,
+count(case when member.sex=1 and member.age >=18 and member.age <60) as 18_to_60_male,
+count(case when member.sex=0 and member.age >=60) as over_60_female,
+count(case when member.sex=1 and member.age >=60) as over_60_male,
+FROM family inner join member on family.id=member.family_id  
+where family.led_by_woman=true;]]></view_script>
+		</view>
+		<view name="MARRIED_MARTYR" >
+			<view_script><![CDATA[CREATE VIEW ${name} AS SELECT count(family.id) as  number_of_families,
+count(case when member.sex=0 and member.age <5) as Under_5_female,
+count(case when member.sex=1 and member.age <5) as Under_5_male,
+count(case when member.sex=0 and member.age >=5 and member.age <18) as 5_to_18_female,
+count(case when member.sex=1 and member.age >=5 and member.age <18) as 5_to_18_male,
+count(case when member.sex=0 and member.age >=18 and member.age <60) as 18_to_60_female,
+count(case when member.sex=1 and member.age >=18 and member.age <60) as 18_to_60_male,
+count(case when member.sex=0 and member.age >=60) as over_60_female,
+count(case when member.sex=1 and member.age >=60) as over_60_male,
+FROM family inner join family_type on family.family_type = family_type.id inner join member on family.id=member.family_id  
+where family_type.name='عائلة شهيد' and family.married=true;]]></view_script>
+		</view>
+		<view name="SINGLE_MARTYR" >
+			<view_script><![CDATA[CREATE VIEW ${name} AS SELECT count(family.id) as  number_of_families,
+count(case when member.sex=0 and member.age <5) as Under_5_female,
+count(case when member.sex=1 and member.age <5) as Under_5_male,
+count(case when member.sex=0 and member.age >=5 and member.age <18) as 5_to_18_female,
+count(case when member.sex=1 and member.age >=5 and member.age <18) as 5_to_18_male,
+count(case when member.sex=0 and member.age >=18 and member.age <60) as 18_to_60_female,
+count(case when member.sex=1 and member.age >=18 and member.age <60) as 18_to_60_male,
+count(case when member.sex=0 and member.age >=60) as over_60_female,
+count(case when member.sex=1 and member.age >=60) as over_60_male,
+FROM family inner join family_type on family.family_type = family_type.id inner join member on family.id=member.family_id  
+where family_type.name='عائلة شهيد' and family.married=false;]]></view_script>
+		</view>
+		<view name="SPECIAL_NEEDS" >
+			<view_script><![CDATA[CREATE VIEW ${name} AS SELECT count(family.id) as  number_of_families,
+ count(case when member.sex=0 and member.age <5) as Under_5_female,
+count(case when member.sex=1 and member.age <5) as Under_5_male,
+count(case when member.sex=0 and member.age >=5 and member.age <18) as 5_to_18_female,
+count(case when member.sex=1 and member.age >=5 and member.age <18) as 5_to_18_male,
+count(case when member.sex=0 and member.age >=18 and member.age <60) as 18_to_60_female,
+count(case when member.sex=1 and member.age >=18 and member.age <60) as 18_to_60_male,
+count(case when member.sex=0 and member.age >=60) as over_60_female,
+count(case when member.sex=1 and member.age >=60) as over_60_male,
+FROM family inner join member on family.id=member.family_id 
+ inner join family_type on family.family_type=family_type.id where
+family_type.name='عائلة ذوي الإحتياجات الخاصة';]]></view_script>
+		</view>
+		<view name="SPECIAL_NEEDS_PER_FAMILY" >
+			<view_script><![CDATA[CREATE VIEW ${name} AS SELECT count(family.id) as  number_of_families,
+ count(case when member.sex=0 and member.age <5) as Under_5_female,
+count(case when member.sex=1 and member.age <5) as Under_5_male,
+count(case when member.sex=0 and member.age >=5 and member.age <18) as 5_to_18_female,
+count(case when member.sex=1 and member.age >=5 and member.age <18) as 5_to_18_male,
+count(case when member.sex=0 and member.age >=18 and member.age <60) as 18_to_60_female,
+count(case when member.sex=1 and member.age >=18 and member.age <60) as 18_to_60_male,
+count(case when member.sex=0 and member.age >=60) as over_60_female,
+count(case when member.sex=1 and member.age >=60) as over_60_male,
+count(case when member.special_needs=true) as number_of_special_needs,
+ count(case when member.sex=0 and member.age <5 and member.special_needs=true) as Under_5_female_special_needs,
+count(case when member.sex=1 and member.age <5 and member.special_needs=true) as Under_5_male_special_needs,
+count(case when member.sex=0 and member.age >=5 and member.age <18 and member.special_needs=true) as 5_to_18_female_special_needs,
+count(case when member.sex=1 and member.age >=5 and member.age <18 and member.special_needs=true) as 5_to_18_male_special_needs,
+count(case when member.sex=0 and member.age >=18 and member.age <60 and member.special_needs=true) as 18_to_60_female_special_needs,
+count(case when member.sex=1 and member.age >=18 and member.age <60 and member.special_needs=true) as 18_to_60_male_special_needs,
+count(case when member.sex=0 and member.age >=60 and member.special_needs=true) as over_60_female_special_needs,
+count(case when member.sex=1 and member.age >=60 and member.special_needs=true) as over_60_male_special_needs,
+FROM family inner join member on family.id=member.family_id 
+ inner join family_type on family.family_type=family_type.id where
+family_type.name='عائلة ذوي الإحتياجات الخاصة' group by famil.id;]]></view_script>
+		</view>
+		<trigger name="Trigger" id="Trigger_1505" isSystem="false" >
+			<string><![CDATA[create trigger ismarried before update,insert on member 
+for each row call 'org.sarc.bazinga.database.MarriedTrigger';]]></string>
+		</trigger>
+	</schema>
+	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.14.jar" driver_desc="Standard" host="localhost" port="5432" user="root" passwd="cm9vdA==" schema_mapping="Default:public" />
+	<connector name="Sqlite" database="Sqlite" driver_class="org.sqlite.JDBC" driver_jar="sqlite-jdbc-3.30.1.jar" driver_desc="Standard" host="localhost" port="7210" instance="/home/ossama/qtcreator/Bazinga/Azma/test" />
+	<layout name="Default Layout" id="Layout_152" show_relation="columns" >
+		<entity schema="public" name="HOUSING_STATUS" color="C1D8EE" x="48" y="720" />
+		<entity schema="public" name="HOUSING_TYPE" color="C1D8EE" x="560" y="720" />
+		<entity schema="public" name="LED_BY_WOMAN" color="3986C1" x="912" y="416" />
+		<entity schema="public" name="MARRIED_MARTYR" color="3986C1" x="912" y="672" />
+		<entity schema="public" name="RELATIONSHIP" color="C1D8EE" x="912" y="96" />
+		<entity schema="public" name="SINGLE_MARTYR" color="3986C1" x="896" y="544" />
+		<entity schema="public" name="SPECIAL_NEEDS" color="3986C1" x="912" y="480" />
+		<entity schema="public" name="SPECIAL_NEEDS_PER_FAMILY" color="3986C1" x="896" y="608" />
+		<entity schema="public" name="aid" color="C1D8EE" x="928" y="304" />
+		<entity schema="public" name="delivered_aid" color="C1D8EE" x="624" y="544" />
+		<entity schema="public" name="family" color="C1D8EE" x="256" y="480" />
+		<entity schema="public" name="family_status" color="C1D8EE" x="240" y="144" />
+		<entity schema="public" name="family_type" color="C1D8EE" x="64" y="544" />
+		<entity schema="public" name="member" color="C1D8EE" x="512" y="48" />
+		<entity schema="public" name="region" color="C1D8EE" x="48" y="272" />
+		<script name="HOUSING_STATUS" id="Editor_1c03" language="SQL" >
+			<string><![CDATA[INSERT INTO "public".HOUSING_STATUS
+	(NAME) VALUES ( 'عادي' ),( 'مشترك' ),( 'غرفتين' ),( 'سيء' ),( 'جيد' ),( 'غرفة واحدة' ),
+( 'سيء جدا' ),( 'متضرر' ),( 'توتياء' ),( 'ملحق' );]]></string>
+		</script>
+		<script name="HOUSING_TYPE" id="Editor_212e" language="SQL" >
+			<string><![CDATA[INSERT INTO "public".HOUSING_TYPE
+	(NAME) VALUES ( 'إعارة' ),('إيجار'),('إيجار / مشترك'),('رهن'),('مركز ايواء'),('مشترك'),('ملك');]]></string>
+		</script>
+		<script name="family_status" id="Editor_24a4" language="SQL" >
+			<string><![CDATA[INSERT INTO "public"."family_status"
+	("name") VALUES ( 'مقبول لم يستلم بطاقة' ),( 'مقبول - مساعدات غير غذائية' ),( 'مستعجل - استلام مرة واحدة' ),( 'ملغى' ),( 'الفريق الجوال' );]]></string>
+		</script>
+		<script name="family_type" id="Editor_9ef" language="SQL" >
+			<string><![CDATA[INSERT INTO "public"."family_type"
+	("name") VALUES ( 'عائلة شهيد' ),( 'عائلة مريض' ),( 'عائلة ذوي الإحتياجات الخاصة' ),( 'عائلة متضررة' ),
+( 'غير محدد' ),( 'عائلة مصاب' ),( 'عائلة معاق' ),( 'عائلة أيتام' ),( 'عائلة مفقود' ),( 'عائلة نازحين' ),
+( 'عائلة وافدين من مخيم الرقبان - مراكز إيواء' ),( 'عائلة فقيرة' ),( 'عائلة عائدين' ),( 'عائلة عاجز' ),
+( 'عائلة معتقل' ),( 'عائلة وافدين من مخيم الرقبان - افرادي' );]]></string>
+		</script>
+		<script name="member" id="Editor_10dc" language="SQL" >
+			<string><![CDATA[CREATE TABLE "public"."member" ( 
+	"family_id"          integer   NOT NULL,
+	"memeber_id"         integer   NOT NULL,
+	"birthday"           date   NOT NULL,
+	"relationship"       integer   NOT NULL,
+	"special_needs"      boolean  DEFAULT false NOT NULL,
+	"has_chronic_disease" boolean  DEFAULT false NOT NULL,
+	"sex"                integer   NOT NULL,
+	AGE                  integer   ,
+	WORK                 varchar(100)   ,
+	INCOME               integer  DEFAULT 0 ,
+	NAME                 varchar(20)   NOT NULL,
+	FATHER               varchar(100)   ,
+	MOTHER               varchar(100)   ,
+	CONSTRAINT "idx_member" PRIMARY KEY ( "family_id", "memeber_id" ),
+	CONSTRAINT "unq_member_memeber_id" UNIQUE ( "memeber_id" ) 
+ );
+
+CREATE INDEX "idx_member_sex" ON "public"."member" ( "sex" );
+
+CREATE INDEX "idx_member_relationship" ON "public"."member" ( "relationship" );
+
+CREATE INDEX "idx_member_special_needs" ON "public"."member" ( "special_needs" );
+
+CREATE INDEX "idx_member_chronic_diseases" ON "public"."member" ( "has_chronic_disease" );
+
+CREATE INDEX IDX_MEMBER_AGE ON "public"."member" ( AGE );
+
+ALTER TABLE "public"."member" ADD CONSTRAINT "fk_member" FOREIGN KEY ( "family_id" ) REFERENCES "public"."family"( "id" ) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE "public"."member" ADD CONSTRAINT FK_MEMBER_RELATIONSHIP FOREIGN KEY ( "relationship" ) REFERENCES "public".RELATIONSHIP( ID ) ON DELETE RESTRICT ON UPDATE CASCADE;
+]]></string>
+		</script>
+	</layout>
+</project>

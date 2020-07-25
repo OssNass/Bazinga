@@ -5,11 +5,13 @@ import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 import io.github.ossnass.fx.ControlMaster;
+import org.sarc.bazinga.app.LogManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class PlugInLoader {
 
@@ -57,11 +59,11 @@ public class PlugInLoader {
             pi.setId(getId(name));
             return pi;
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            LogManager.addLog(Level.WARNING, e, null);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LogManager.addLog(Level.WARNING, e, null);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            LogManager.addLog(Level.WARNING, e, null);
         }
         return null;
     }

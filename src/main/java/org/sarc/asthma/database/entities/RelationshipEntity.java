@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "RELATIONSHIP", schema = "PUBLIC", catalog = "HEARTATTACK")
 public class RelationshipEntity {
-    private Integer id;
+    private int id;
     private String name;
     private Integer sex;
     private List<MemberEntity> membersById;
@@ -15,11 +15,11 @@ public class RelationshipEntity {
     @Id
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

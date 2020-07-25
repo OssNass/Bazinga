@@ -1,6 +1,5 @@
 package org.sarc.asthma.processor;
 
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -12,14 +11,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.sarc.asthma.pluginarch.PlugIn;
 import org.sarc.asthma.pluginarch.PlugInInfo;
+import org.sarc.bazinga.app.LogManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 @PlugInInfo("SI")
 public class SonbolaImporter extends PlugIn<Void> {
-    private SimpleStringProperty fileName;
-    private ObservableList<String> sheets;
+    private final SimpleStringProperty fileName;
+    private final ObservableList<String> sheets;
     private Workbook sonbola;
     private Sheet data;
 
@@ -31,14 +32,13 @@ public class SonbolaImporter extends PlugIn<Void> {
     }
 
     private void workbookChanged(ObservableValue<? extends String> item, String oldValue, String newValue) {
-        System.out.println(newValue);
         if (sonbola != null) {
             try {
                 sheets.clear();
                 data = null;
                 sonbola.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                LogManager.addLog(Level.WARNING, e, null);
             }
         }
         try {
@@ -47,7 +47,7 @@ public class SonbolaImporter extends PlugIn<Void> {
                 sheets.add(sonbola.getSheetName(i));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LogManager.addLog(Level.WARNING, e, null);
         }
 
     }

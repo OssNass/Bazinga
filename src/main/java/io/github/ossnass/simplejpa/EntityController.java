@@ -1,6 +1,7 @@
 package io.github.ossnass.simplejpa;
 
 import org.jinq.jpa.JinqJPAStreamProvider;
+import org.jinq.orm.stream.JinqStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -8,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,11 +83,20 @@ public class EntityController<T, K> {
 
 
     public boolean save(T[] entities) {
+        List<T> list = new ArrayList<>();
+        for (T entity : entities)
+            list.add(entity);
+        return save(list);
+    }
+
+    public boolean save(List<T> entities) {
         boolean result = false;
         try {
             startTransaction();
-            for (T entity : entities)
+            for (T entity : entities) {
+
                 this.em.persist(entity);
+            }
             commitTransaction();
             DBCommon.setLastException(null);
             result = true;
@@ -95,7 +106,6 @@ public class EntityController<T, K> {
         }
         return result;
     }
-
 
     public boolean remove(T entity) {
         boolean result = false;
@@ -112,8 +122,14 @@ public class EntityController<T, K> {
         return result;
     }
 
-
     public boolean remove(T[] entities) {
+        List<T> list = new ArrayList<>();
+        for (T entity : entities)
+            list.add(entity);
+        return remove(list);
+    }
+
+    public boolean remove(List<T> entities) {
         boolean result = false;
         try {
             startTransaction();
@@ -141,5 +157,10 @@ public class EntityController<T, K> {
         Root<T> from = cq.from(this.entityClass);
         cq.select((Selection) from);
         return this.em.createQuery(cq).getResultList();
+    }
+
+    public long getCount() {
+        JinqStream<T> entities = jinq.streamAll(em, entityClass);
+        return entities.count();
     }
 }
